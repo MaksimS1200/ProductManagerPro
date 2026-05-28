@@ -1,0 +1,58 @@
+﻿<Window x:Class="ProductManagerPro.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProductManagerPro"
+        mc:Ignorable="d"
+        Title="Product Manager Pro - Экспорт JSON" Height="450" Width="600">
+    
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Название товара:" Margin="0,5,0,0"/>
+        <TextBox Grid.Row="0" Grid.Column="0" Margin="0,25,0,5" 
+                 Text="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalAlignment="Top"/>
+        
+        <Label Grid.Row="1" Grid.Column="0" Content="Цена товара:" Margin="0,5,0,0"/>
+        <TextBox Grid.Row="1" Grid.Column="0" Margin="0,25,0,5" 
+                 Text="{Binding ProductPrice, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalAlignment="Top"/>
+
+        <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Top">
+            <Button Content="Добавить" Command="{Binding AddCommand}" Margin="0,5" Width="100" Height="30"/>
+            <Button Content="Обновить" Command="{Binding UpdateCommand}" Margin="0,5" Width="100" Height="30"/>
+            <Button Content="Удалить" Command="{Binding DeleteCommand}" Margin="0,5" Width="100" Height="30"/>
+        </StackPanel>
+
+        <Button Grid.Row="3" Grid.ColumnSpan="2" 
+                Content="📁 Экспорт в JSON" 
+                Command="{Binding ExportCommand}" 
+                Margin="0,10" Height="35"
+                Background="LightGreen"
+                FontWeight="Bold"
+                FontSize="14"/>
+
+        <Label Grid.Row="4" Grid.ColumnSpan="2" Content="Список товаров:" Margin="0,5,0,0"/>
+        <ListBox Grid.Row="4" Grid.ColumnSpan="2" Margin="0,35,0,5"
+                 ItemsSource="{Binding Products}"
+                 SelectedItem="{Binding SelectedProduct}"
+                 DisplayMemberPath="Name"
+                 Height="200" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
